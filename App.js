@@ -134,6 +134,9 @@ function App(canvasSelector) {
 			}
 			if(storedNames[i].name === "Text"){
 				storedNames[i].__proto__ = TextShape.prototype;
+			}
+			if(storedNames[i].name === "WhiteMarker"){
+				storedNames[i].__proto__ = WhiteMarker.prototype;
 			}	
 			self.shapes.push(storedNames[i]);
 		}
@@ -190,6 +193,9 @@ $(function() {
 		}
 		if(this.value === 'text'){
             app.shapeConstructor = TextShape;
+        }
+        if(this.value === 'whitemarker'){
+            app.shapeConstructor = WhiteMarker;
         }
 	});
 	$('#clearbutton').click(function(){app.clear()});
