@@ -9,14 +9,12 @@ function App(canvasSelector) {
 
 	self.drawingStart = function(e) {	
 		var startPos = self.getEventPoint(e);
-		var shape = new self.shapeConstructor(startPos,self.color, self.width, self.fontOli, self.fontSize);
+		var shape = new self.shapeConstructor(startPos,self.color, self.width, self.fontOfText, self.fontSize);
 
 		shape.startDrawing(startPos,self.canvasContext);
 		startPos.log('drawing start');
-		//console.log("drawingStart, Shape: " + shape.name);
 	
 		var drawing = function(e) {
-			//console.log("drawing, Shape: " + shape);
 			var pos = self.getEventPoint(e);
 			
 			shape.drawing(pos,self.canvasContext);
@@ -25,7 +23,6 @@ function App(canvasSelector) {
 		}
 
 		var drawingStop = function(e) {
-			//console.log("drawing Stop, Shape: " + shape);
 			var pos = self.getEventPoint(e);
 
 			shape.stopDrawing(pos,self.canvasContext);
@@ -59,7 +56,6 @@ function App(canvasSelector) {
 
 	self.redraw = function() {
 		self.canvasContext.clearRect(0, 0, self.canvasContext.canvas.width, self.canvasContext.canvas.height);
-		//console.log(self.shapes.length);
 		for(var i = 0; i < self.shapes.length; i++) {
 			self.shapes[i].draw(self.canvasContext);
 		}
@@ -77,6 +73,8 @@ function App(canvasSelector) {
 	}
 	
 	self.clear = function() {
+
+		//Reset textbox
 		document.getElementById("textbox").style.display='none';
 		document.getElementById("textbox").value='';
 		document.getElementById("textbox").style.width=10;
@@ -100,9 +98,6 @@ function App(canvasSelector) {
 
 	self.store = function(){
 		for(var i = 0; i < self.shapes.length; i++){
-			console.log(self.shapes[i]);
-		}
-		for(var i = 0; i < self.shapes.length; i++){
 			arrshape.push(self.flatten(self.shapes[i]));
 		}
 		localStorage.setItem("store", JSON.stringify(arrshape));
@@ -111,6 +106,7 @@ function App(canvasSelector) {
 	self.setColor = function(color) {
 		self.color = color;
 	}
+
 
 	self.flatten = function(obj) {
 	    var result = Object.create(obj);
@@ -123,7 +119,6 @@ function App(canvasSelector) {
 	self.load = function(){
 		self.clear();
 		storedNames = JSON.parse(localStorage.getItem("store"));
-		console.log(storedNames);
 		for(var i = 0; i < storedNames.length; i++){
 			if(storedNames[i].name === "Line"){
 				storedNames[i].__proto__ = Line.prototype;
@@ -149,8 +144,8 @@ function App(canvasSelector) {
 		self.fontSize = fontSize;
 	}
 
-	self.setFont = function(fontOli) {
-		self.fontOli = fontOli;
+	self.setFont = function(fontOfText) {
+		self.fontOfText = fontOfText;
 	}
 
 	self.init = function() {
@@ -167,7 +162,7 @@ function App(canvasSelector) {
 		// Set defaults
 
 		self.color = '#ff0000';	
-		self.fontOli = "Tahoma";
+		self.fontOfText = "Tahoma";
 		self.fontSize = 12;
 		self.width = 1;
 		// TODO: Set sensible defaults ...
@@ -196,9 +191,7 @@ $(function() {
 		if(this.value === 'text'){
             app.shapeConstructor = TextShape;
         }
-			//app.shapeConstructor = TextShape;
 	});
-	//$('#penbutton').click(function(){app.shapeConstructor = Pen;});
 	$('#clearbutton').click(function(){app.clear()});
 	$('#color').change(function(){app.setColor($(this).val())});
 	$('#undo').click(function(){app.undo()});
@@ -206,9 +199,7 @@ $(function() {
 	$('#store').click(function(){app.store()});
 	$('#load').click(function(){app.load()});
 	$('#width').change(function(){
-		console.log($("#width").val())
 		app.setWidth($("#width").val())	
-			//alert("HTML: " + $("#linewidth").html());
 	});
 	$('#myFont').change(function() {
         if($(this).val() !== "Default font"){
@@ -224,17 +215,12 @@ $(function() {
     });
 	$("#textbox").keyup(function(event){
 		if(event.keyCode == 13){
-			//console.log(self);
 		    var textValue = $("#textbox").val()
-		    //console.log(this.canvas);
-		    //this.canvas.font = 'italic 20px sans-serif';
-      		//this.canvas.fillText(this.textValue, this.startX, this.startY);
       		document.getElementById("textbox").style.display='none';
 			document.getElementById("textbox").value='';
 			document.getElementById("textbox").style.width=10;
 			document.getElementById("textbox").style.height=10;	
 		    document.getElementById("textbox").style.display='none';
-
 		    app.textBox(textValue);
 		}
 	});

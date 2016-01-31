@@ -1,7 +1,7 @@
 var TextShape = Shape.extend({
 
-	constructor: function(pos,color,width,fontOli,fontSize) {
-		this.base("Text",pos,color,width,fontOli,fontSize);
+	constructor: function(pos,color,width,fontOfText,fontSize) {
+		this.base("Text",pos,color,width,fontOfText,fontSize);
 		this.canvas;
 		this.textValue = '';
 		this.startX;
@@ -9,17 +9,9 @@ var TextShape = Shape.extend({
 	},
 
 	draw: function(canvas) {
-		//console.log('draw');
-		//this.canvas = canvas;
-		//console.log('draw, ' + this.fontOli);
 		canvas.fillStyle = this.color;
-		var x = "bold " + this.fontSize + "px " + this.fontOli + ", sans-serif";
+		var x = "bold " + this.fontSize + "px " + this.fontOfText + ", sans-serif";
 		canvas.font = x;
-		console.log('Draw');
-		console.log('This.StartX: ' + this.startX);
-		console.log('This.StartY: ' + this.startY);
-		console.log('This.posX: ' + this.pos.x);
-		console.log('This.posY: ' + this.pos.y);
       	canvas.fillText(this.textValue, this.startX-8, this.startY-40);
 	},
 
@@ -30,8 +22,7 @@ var TextShape = Shape.extend({
 		this.startY = this.pos.y+40; //+30
 		textbox.style.left = this.startX+124;
 		textbox.style.top = this.startY;
-		console.log(this.fontOli);
-		//console.log('startDrawing');
+		console.log(this.fontOfText);
 	},
 
 	stopDrawing:function(point) {

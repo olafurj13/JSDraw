@@ -9,15 +9,12 @@ var Line = Shape.extend({
 	},
 
 	draw: function(canvas) {
-
 		canvas.strokeStyle = this.color;
 		canvas.lineWidth = this.width;
-		
 		canvas.beginPath();
 		canvas.moveTo(this.beginX, this.beginY);
 		canvas.lineTo(this.endX, this.endY);
 		canvas.stroke();
-		//canvas.strokeRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
 		this.base(canvas);
 	},
 	startDrawing:function(point) {
