@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title>JS-Draw</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="base.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="point.js"></script>
+	<script type="text/javascript" src="shape.js"></script>
+	<script type="text/javascript" src="square.js"></script>	
+	<script type="text/javascript" src="pen.js"></script>	
+	<script type="text/javascript" src="textshape.js"></script>	
+	<script type="text/javascript" src="line.js"></script>	
+	<script type="text/javascript" src="circle.js"></script>	
+</head>
+<body>	
+	<div id="toolbar">
+			<select id="tools">
+				<option selected disabled hidden value=''>Select Tool</option>
+				<option value="pencil">Pencil</option>
+				<option value="square">Square</option>
+				<option value="line">Line</option>
+				<option value="circle">Circle</option>
+				<option value="text">Text</option>
+			</select>
+			Line Width
+			<select id="width">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="4">4</option>
+				<option value="6">6</option>
+				<option value="8">8</option>
+				<option value="10">10</option>
+			</select>
+			<input type="color" name="color" id="color" value="#ff0000"></input>
+			<input type="button" name="clearbutton" id="clearbutton" value="clear"></input>
+			<input type="button" name="undo" id="undo" value="undo"></input>
+			<input type="button" name="redo" id="redo" value="redo"></input>
+			<input type="button" name="store" id="store" value="store"></input>
+			<input type="button" name="load" id="load" value="load"></input>
+			<input type="radio" name="tool" id="selectbutton" value="select"></input><label for="selectbutton">Select</label>
+	</div>
+	<div id="div1">
+				<select id="myFont">
+				    <option selected="selected">Default font</option>
+				    <option>Arial</option>
+				    <option>Times New Roman</option>
+				    <option>Verdana</option>
+				</select>
+				Font Size
+				<select id="fontSize">
+				    <option selected="selected">12</option>
+				    <option>14</option>
+				    <option>18</option>
+				    <option>26</option>
+				</select>
+			</div>
+	<input id="textbox" type="text">
+	<canvas id="canvas" height="500" width="1100"></canvas>
+</body>
+</html>

@@ -1,0 +1,42 @@
+#toolbar {
+	background-color:silver;
+	text-align: center;
+}
+
+#myFont, #fontSize{
+	display: none;
+}
+
+#div1 
+{
+	display: none;
+	padding-left: 550px;
+}
+
+
+#canvas {
+	border:1px solid silver;
+	display:block;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: white;
+}
+
+#textbox {
+	position: absolute;
+	display:none;
+	width: 10px;
+	height: 10px;
+}
+
+body {
+	background-color:silver;
+}
+
+.verdana { font-family: Verdana; }
+.arial { font-family: Arial; }
+.tahoma { font-famiy: Tahoma; }
+.times { font-family: Times }
