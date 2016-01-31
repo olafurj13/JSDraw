@@ -139,6 +139,10 @@ function App(canvasSelector) {
 			}
 			if(storedNames[i].name === "Text"){
 				storedNames[i].__proto__ = TextShape.prototype;
+			}
+			if(storedNames[i].name === "WhiteMarker"){
+				console.log("HER!");
+				storedNames[i].__proto__ = TextShape.prototype;
 			}	
 			self.shapes.push(storedNames[i]);
 		}
@@ -195,6 +199,9 @@ $(function() {
 		}
 		if(this.value === 'text'){
             app.shapeConstructor = TextShape;
+        }
+        if(this.value === 'whitemarker'){
+            app.shapeConstructor = WhiteMarker;
         }
 			//app.shapeConstructor = TextShape;
 	});
