@@ -8,8 +8,6 @@ var Pen = Shape.extend({
 	},
 
 	draw: function(canvas) {
-		//canvas.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
-
 	    for (var i = 0; i < this.clickX.length; i += 1) {
 	        if (!this.clickDrag[i] && i == 0) {
 	        	canvas.lineWidth = this.width;
@@ -25,9 +23,6 @@ var Pen = Shape.extend({
 	        }
 	    }
 	    this.base(canvas);
-			//console.log(this.trackOfMouse[i].x);
-
-
 	},
 
 	drawing:function(point) {
@@ -35,8 +30,6 @@ var Pen = Shape.extend({
 		this.size.y = point.y - this.pos.y;
 		this.clickX.push(point.x);
     	this.clickY.push(point.y);
-		//var p = new Point(point.x, point.y)
-		//this.trackOfMouse.push(p);
 	},
 
 	added: function(canvas) {

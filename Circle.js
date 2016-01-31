@@ -3,13 +3,11 @@ var Circle = Shape.extend({
 	constructor: function(pos,color,width) {
 		this.clickX = [];
 		this.clickY = [];
-		//this.clickDrag = [];
 		this.base("Circle",pos,color,width);
 
 	},
 
 	draw: function(canvas) {
-		console.log("Circle");
 		canvas.strokeStyle = this.color;
 		canvas.lineWidth = this.width;
 		var radius = Math.sqrt((this.size.x * this.size.x) + (this.size.y * this.size.y));
