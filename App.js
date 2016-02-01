@@ -1,6 +1,7 @@
 function App(canvasSelector) {
 	var self = this;
 	var arrshape = [];
+	var selected = false;
 	self.getEventPoint = function(e) {
 		return new Point(e.pageX - self.canvasOffset.x,e.pageY - self.canvasOffset.y);
 	}
@@ -44,12 +45,49 @@ function App(canvasSelector) {
 
 
 	self.mousedown = function(e) {
+		console.log(self.selected);
 		if(self.shapeConstructor != null) {
-			self.drawingStart(e);
+			if(self.selected){
+				console.log('selected');
+				self.shapeMove(e);
+			}else{
+				self.drawingStart(e);
+			}
 		} else {
 		}
 
 		self.redraw();
+	}
+
+	self.shapeMove = function(e) {
+		var pos = self.getEventPoint(e);
+		for(var i = self.shapes.length - 1; i >= 0; i--){
+			//console.log("pos x: " + pos.x + " ---- pos y: " + pos.y );
+			console.log("self.shapes[" + i + "]: " + self.shapes[i].name);
+			self.shapes[i].contains(pos.x, pos.y, self.canvasContext);
+			if(self.shapes[i].shapeSelected){
+				console.log("selected shapes");
+				var moving = function(e) {
+					var newPos = self.getEventPoint(e);
+					self.shapes[i].moving(pos, newPos, self.canvasContext);
+					pos = newPos;
+					self.redraw();
+				};
+				var moveStop = function(e) {
+					self.canvas.off({
+						mousemove: moving,
+						mouseup: moveStop
+					});
+					self.redraw();
+				};
+				self.redraw();
+				break;
+			}
+		}
+		self.canvas.on({
+			mousemove: moving,
+			mouseup: moveStop
+		});	
 	}
 
 	self.redraw = function() {
@@ -171,6 +209,9 @@ function App(canvasSelector) {
 		// TODO: Set sensible defaults ...
 	}
 	
+	self.select = function(e) {
+		self.selected
+	}
 	self.init();
 }
 
@@ -179,23 +220,33 @@ $(function() {
 	// Wire up events
 	app = new App('#canvas');
 	$('select').on('change', function(){
+		app.selected = false;
 		if(this.value === 'square'){
+			document.getElementById('canvas').style.cursor = "default";
 			app.shapeConstructor = Square;
 		}
 		if(this.value === 'pencil'){
+			document.getElementById('canvas').style.cursor = "default";
 			app.shapeConstructor = Pen;
 		}
 		if(this.value === 'circle'){
+			document.getElementById('canvas').style.cursor = "default";
 			app.shapeConstructor = Circle;
 		}
 		if(this.value === 'line'){
+			document.getElementById('canvas').style.cursor = "default";
 			app.shapeConstructor = Line;
 		}
 		if(this.value === 'text'){
+			document.getElementById('canvas').style.cursor = "default";
             app.shapeConstructor = TextShape;
         }
         if(this.value === 'whitemarker'){
+        	document.getElementById('canvas').style.cursor = "default";
             app.shapeConstructor = WhiteMarker;
+        }
+        if(this.value === 'select'){
+        	app.selected = true;
         }
 	});
 	$('#clearbutton').click(function(){app.clear()});

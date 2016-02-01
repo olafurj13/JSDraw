@@ -9,6 +9,7 @@ var Shape = Base.extend({
 		this.fontOfText = fontOfText;
 		this.fontSize = fontSize;
 		this.width = width;
+		this.shapeSelected = false;
 	},
 
 
@@ -16,6 +17,14 @@ var Shape = Base.extend({
 		if ( this.selected === true ) {
 			// show selection
 		}
+	},
+
+	contains: function(point) {
+
+	},
+
+	moving: function(point) {
+
 	},
 
 	startDrawing:function(point) {
