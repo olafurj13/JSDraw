@@ -1,8 +1,6 @@
 function App(canvasSelector) {
 	var self = this;
 	var arrshape = [];
-	var storedNames = [];
-	var selectButtonClick = false;
 	self.getEventPoint = function(e) {
 		return new Point(e.pageX - self.canvasOffset.x,e.pageY - self.canvasOffset.y);
 	}
@@ -97,6 +95,7 @@ function App(canvasSelector) {
 	}
 
 	self.store = function(){
+		var arrshape = [];
 		for(var i = 0; i < self.shapes.length; i++){
 			arrshape.push(self.flatten(self.shapes[i]));
 		}
@@ -107,16 +106,17 @@ function App(canvasSelector) {
 		self.color = color;
 	}
 
-
-	self.flatten = function(obj) {
-	    var result = Object.create(obj);
-	    for(var key in result) {
-	        result[key] = result[key];
+	//Fékk hjálp við þetta fall á stack overflow.
+	self.flatten = function(jsonobj) {
+	    var flatten = Object.create(jsonobj);
+	    for(var x in flatten) {
+	        flatten[x] = flatten[x];
 	    }
-    	return result;
+    	return flatten;
 	}
 
 	self.load = function(){
+		var storedNames = [];
 		self.clear();
 		storedNames = JSON.parse(localStorage.getItem("store"));
 		for(var i = 0; i < storedNames.length; i++){

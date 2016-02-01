@@ -16,11 +16,13 @@ var TextShape = Shape.extend({
 	},
 
 	startDrawing:function(point) {
+	    var screenWidth = screen.width;
+	    var ratio = (screenWidth - 1100)/2.3;
 		var textbox = document.getElementById("textbox");
 		textbox.style.display='block';
 		this.startX = this.pos.x+8; //+8
 		this.startY = this.pos.y+40; //+30
-		textbox.style.left = this.startX+124;
+		textbox.style.left = this.startX+ratio;
 		textbox.style.top = this.startY;
 		console.log(this.fontOfText);
 	},
@@ -29,9 +31,7 @@ var TextShape = Shape.extend({
 		var textbox = document.getElementById("textbox");
 		textbox.style.width = this.size.x;
 		textbox.style.height = this.size.y;
-
 		var self = this;
-		//console.log('stopDrawing');
 	},
 
 	drawing:function(point) {
