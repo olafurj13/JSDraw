@@ -39,28 +39,23 @@ var Line = Shape.extend({
 		}
 	},	
 
-	contains: function(x, y) {
+	inShape: function(x, y) {
 		//This.pos eru byrjunar punktar formsins
-		console.log('contains fall line');
-		console.log('This.pos.x: ' + this.pos.x + "----- this.pos.y: " + this.pos.y);
-		console.log('         X: ' + x + "------                   Y: " + y);
-		console.log("----------------------------------------------------------")
-		if(this.pos.x > x || this.pos.y > y) {
-			console.log("utfyrir kassa 1");
-			this.shapeSelected = false;
-		} else if((this.pos.x + this.size.x) < x || (this.pos.y + this.size.y) < y) {
-			console.log("utfyrir kassa 2");
-			this.shapeSelected = false;
+		var x1 = (this.endX-this.beginX);
+		var y1 = (this.endY-this.beginY);
+		if((x > this.endX || x < this.beginX) || (y > this.endY || y <	 this.beginY)) {
+			this.isShapeSelected = false;	
 		} else {
-			console.log("inni i kassa");
-			this.shapeSelected = true;
+			this.isShapeSelected = true;
 		}
-	},
-	moving: function(p1, p2) {
-		var moveX = p1.x - p2.x;
-		var moveY = p1.y - p2.y;
-		this.pos.x -= moveX;
-		this.pos.y -= moveY;
+	},            //pos, newPos
+	dragging: function(x, y) {
+		var newLocationX = x.x - y.x;
+		var newLocationY = x.y - y.y;
+		this.beginX -= newLocationX;
+		this.beginY -= newLocationY;
+		this.endX -= newLocationX;
+		this.endY -= newLocationY;
 	},
 
 });

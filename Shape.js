@@ -9,7 +9,7 @@ var Shape = Base.extend({
 		this.fontOfText = fontOfText;
 		this.fontSize = fontSize;
 		this.width = width;
-		this.shapeSelected = false;
+		this.isShapeSelected = false;
 	},
 
 
@@ -19,11 +19,11 @@ var Shape = Base.extend({
 		}
 	},
 
-	contains: function(point) {
+	inShape: function(point) {
 
 	},
 
-	moving: function(point) {
+	dragging: function(point) {
 
 	},
 

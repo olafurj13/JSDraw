@@ -6,6 +6,8 @@ var TextShape = Shape.extend({
 		this.textValue = '';
 		this.startX;
 		this.startY;
+		this.endX;
+		this.endY;
 	},
 
 	draw: function(canvas) {
@@ -29,6 +31,8 @@ var TextShape = Shape.extend({
 
 	stopDrawing:function(point) {
 		var textbox = document.getElementById("textbox");
+		this.endX = this.size.x;
+		this.endY = this.size.y;
 		textbox.style.width = this.size.x;
 		textbox.style.height = this.size.y;
 		var self = this;
@@ -50,5 +54,19 @@ var TextShape = Shape.extend({
 			this.size.y = Math.abs(this.size.y);
 		}
 	},	
+
+	inShape: function(x, y) {
+		if((x < this.endX || x > this.startX+8) || (y < this.endY || y > this.startY+40)) {
+			this.isShapeSelected = false;	
+		} else {
+			this.isShapeSelected = true;
+		}
+	},            //pos, newPos
+	dragging: function(x, y) {
+		var newLocationX = x.x - y.x;
+		var newLocationY = x.y - y.y;
+		this.startX -= newLocationX;
+		this.startY -= newLocationY;
+	},
 
 });

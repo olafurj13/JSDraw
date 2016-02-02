@@ -48,7 +48,6 @@ function App(canvasSelector) {
 		console.log(self.selected);
 		if(self.shapeConstructor != null) {
 			if(self.selected){
-				console.log('selected');
 				self.shapeMove(e);
 			}else{
 				self.drawingStart(e);
@@ -58,34 +57,36 @@ function App(canvasSelector) {
 
 		self.redraw();
 	}
-
+	//Fékk hjálp frá samnemanda með þetta fall.
 	self.shapeMove = function(e) {
-		var pos = self.getEventPoint(e);
+		var old_posistion = self.getEventPoint(e);
 		for(var i = self.shapes.length - 1; i >= 0; i--){
-			//console.log("pos x: " + pos.x + " ---- pos y: " + pos.y );
+			console.log("pos x: " + old_posistion.x + " ---- pos y: " + old_posistion.y );
 			console.log("self.shapes[" + i + "]: " + self.shapes[i].name);
-			self.shapes[i].contains(pos.x, pos.y, self.canvasContext);
-			if(self.shapes[i].shapeSelected){
+			self.shapes[i].inShape(old_posistion.x, old_posistion.y, self.canvasContext);
+			if(self.shapes[i].isShapeSelected){
 				console.log("selected shapes");
-				var moving = function(e) {
-					var newPos = self.getEventPoint(e);
-					self.shapes[i].moving(pos, newPos, self.canvasContext);
-					pos = newPos;
-					self.redraw();
-				};
-				var moveStop = function(e) {
-					self.canvas.off({
-						mousemove: moving,
-						mouseup: moveStop
-					});
+				var dragging = function(e) 
+				{
+					var new_position = self.getEventPoint(e);
+					self.shapes[i].dragging(old_posistion, new_position, self.canvasContext);
+					old_posistion = new_position;
 					self.redraw();
 				};
 				self.redraw();
 				break;
 			}
 		}
+		var moveStop = function(e) 
+		{
+			self.canvas.off({
+				mousemove: dragging,
+				mouseup: moveStop
+			});
+			self.redraw();
+		};
 		self.canvas.on({
-			mousemove: moving,
+			mousemove: dragging,
 			mouseup: moveStop
 		});	
 	}

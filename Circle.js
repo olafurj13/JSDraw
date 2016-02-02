@@ -1,16 +1,15 @@
 var Circle = Shape.extend({
 
 	constructor: function(pos,color,width) {
-		this.clickX = [];
-		this.clickY = [];
 		this.base("Circle",pos,color,width);
+		var radius = 0
 
 	},
 
 	draw: function(canvas) {
 		canvas.strokeStyle = this.color;
 		canvas.lineWidth = this.width;
-		var radius = Math.sqrt((this.size.x * this.size.x) + (this.size.y * this.size.y));
+		radius = Math.sqrt((this.size.x * this.size.x) + (this.size.y * this.size.y));
     	canvas.beginPath();
    		canvas.arc(this.beginX, this.beginY, Math.abs(radius), 0, Math.PI*2);
 		canvas.stroke();
@@ -40,24 +39,22 @@ var Circle = Shape.extend({
 		}
 	},
 
-	contains: function(x, y) {
-		console.log('contains fall circle');
-		console.log('This.pos.x: ' + this.pos.x + "----- this.pos.y: " + this.pos.y);
-		console.log('         X: ' + x + "------                   Y: " + y);
-		console.log("----------------------------------------------------------")
-		if((this.pos.x + this.size.x) < x || (this.pos.y + this.size.y) < y) {
-			console.log("utfyrir kassa 2");
-			this.shapeSelected = false;
-		} else {
-			console.log("inni i kassa");
-			this.shapeSelected = true;
+	inShape: function(x, y) {
+		if((this.beginX + radius) < x || (this.beginY + radius) < y) {
+			this.isShapeSelected = false;
+		}
+		else if((this.beginX - radius) > x || (this.beginY - radius) > y) {
+			this.isShapeSelected = false;
+		}
+		else {	
+			this.isShapeSelected = true;
 		}
 	},
-	moving: function(p1, p2) {
-		var moveX = p1.x - p2.x;
-		var moveY = p1.y - p2.y;
-		this.pos.x -= moveX;
-		this.pos.y -= moveY;
+	dragging: function(x, y) {
+		var newLocationX = x.x - y.x;
+		var newLocationY = x.y - y.y;
+		this.beginX -= newLocationX;
+		this.beginY -= newLocationY;
 	},
 
 });
